@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("form").submit(function(){
+                var city= $("input").val();
+            $.get("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&&appid=18d37343c678ed36a6f72fa34ce02a98", function(res) {
+                var name= res.name;
+                var temp = res.main.temp;
+                var celsius= Math.floor(res.main.temp-273.15);
+                var farenheit= Math.floor((celsius*9/5)+32);
+                var output= "<div><h1>"+name+"</h1><h3>Kelvin: "+temp+" Celcius: "+celsius+" Farenheit: "+farenheit+"</h3></div>"
+                $("#content").append(output);
+                console.log(output);
+            }, "json");
+            return false;
+            });
+
+        })
+    </script>
+</head>
+<body>
+    <form action="#">
+        <input type="text" placeholder="Enter City">
+        <label for="submit">Search Weather</label>
+        <input type="submit">
+    </form>
+    <div id="content"></div>
+</body>
+</html>
